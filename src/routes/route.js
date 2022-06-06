@@ -76,14 +76,15 @@ router.get('/films/:filmId', function (req, res) {
   }]
 
   console.log('movie Id ' + JSON.stringify(req.params))
-  if(req.params.filmId>3){
-   // console.log('use a valid index')
+  if(req.params.filmId>4 ||req.params.filmId <=0 ){
+   console.log('No movie exists with this Id')
     res.send('No movie exists with this Id')
     
   }else{
-    
-    console.log('movie Id ' + req.params.filmId + ':'+ 'movie Name '+ movies.req.params.filmId())
-    res.send('Done')
+    let film_id=Number(req.params.filmId)
+    let movie = movies.find(movie => movie.id === film_id)
+    console.log(movie)
+    res.send(movie)
   }
   
  });

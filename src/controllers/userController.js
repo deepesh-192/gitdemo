@@ -66,6 +66,7 @@ const getUserData = async function (req, res) {
   res.send({ status: true, data: userDetails });
 };
 
+
 const updateUser = async function (req, res) {
 // Do the same steps here:
 // Check if the token is present
@@ -83,6 +84,20 @@ const updateUser = async function (req, res) {
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
   res.send({ status: updatedUser, data: updatedUser });
 };
+
+
+const deleteUser = async function (req, res) {
+  
+  
+    let userId = req.params.userId;
+    let user = await userModel.findById(userId);
+    //Return an error if no user with the given id exists in the db
+    if (!user) {
+      return res.send("No such user exists");
+    }
+    let deletedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+    res.send({ status: deletedUser, data: deletedUser });
+  };
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
